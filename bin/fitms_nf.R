@@ -1,6 +1,6 @@
 #!/usr/local/bin/Rscript
 library(VariantAnnotation)
-library(signature.tools.lib-master)
+library(signature.tools.lib)
 
 args = commandArgs(trailingOnly=TRUE)
 
