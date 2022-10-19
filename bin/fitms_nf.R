@@ -1,7 +1,7 @@
 #!/usr/local/bin/Rscript
 library(VariantAnnotation)
-library(signature.tools.lib)
-
+#library(signature.tools.lib)
+library(MutationTimeR)
 args = commandArgs(trailingOnly=TRUE)
 
 
