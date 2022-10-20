@@ -1,4 +1,4 @@
-#!/usr/local/bin/Rscript
+#!/usr/bin/env Rscript
 library(VariantAnnotation)
 library(signature.tools.lib)
 
