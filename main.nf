@@ -19,8 +19,9 @@ process  CloudOS_MTR_input{
     set val(tumour_sample_platekey), file(mtr_input) from ch_input
 
     output:
-    file "*_SNV_catalogues.pdf"
-    file "*_catalogue.csv"
+    #file "*_SNV_catalogues.pdf"
+    #file "*_catalogue.csv"
+    file "*_.txt"
 
     script:
     """
