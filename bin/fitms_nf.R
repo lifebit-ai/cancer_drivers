@@ -1,4 +1,6 @@
 #!/usr/local/bin/Rscript
+library(VariantAnnotation)
+library(signature.tools.lib)
 fileConn<-file("output.txt")
 writeLines(c("Hello","World"), fileConn)
 close(fileConn)
