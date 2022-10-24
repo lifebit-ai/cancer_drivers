@@ -56,4 +56,4 @@ res <-FitMS(catalogues = df,
 
 plotSubsSignatures(signature_data_matrix = df,output_file = paste0(sample, "_SNV_catalogues.pdf"))
 
-plotFitMS(res, paste0('/', sample, 'fit_out'))
+plotFitMS(res, paste0('/', sample, '_fit_out'))
