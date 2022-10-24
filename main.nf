@@ -20,7 +20,9 @@ process  CloudOS_MTR_input{
     output:
     file "*_SNV_catalogues.pdf"
     file "*_catalogue.csv"
-    file "*"
+    file "*.txt"
+    file "*.pdf"
+    file "*.tsv"
     //file "*_fitms_input.csv"
     //file "output.txt"
 
