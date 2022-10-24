@@ -25,8 +25,8 @@ process  CloudOS_MTR_input{
     //file "*_mV.csv"
     //file "*_CLS.csv"
     //file "output.txt"
-    file "*.pdf"
-    file "*.csv"
+    file "*_SNV_catalogues"
+    file "*_catalogue.csv"
     
 
     script:
