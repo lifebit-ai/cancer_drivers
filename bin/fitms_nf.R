@@ -1,25 +1,25 @@
 #!/usr/local/bin/Rscript
 library(VariantAnnotation)
 library(signature.tools.lib)
-#fileConn<-file("output.txt")
-#writeLines(c("Hello","World"), fileConn)
-#close(fileConn)
+fileConn<-file("output.txt")
+writeLines(c("Hello","World"), fileConn)
+close(fileConn)
 
-args = commandArgs(trailingOnly=TRUE)
+#args = commandArgs(trailingOnly=TRUE)
 
 
-sample <- args[1]
-mtr_input <- args[2]
+#sample <- args[1]
+#mtr_input <- args[2]
 
 
 #read in the input file to mutationtimer
-tab  <- read.table(mtr_input, sep='\t')
+#tab  <- read.table(mtr_input, sep='\t')
 ##change the format of the input file to that of FitMS
-tab<- tab[,c(1,2,4,5)]
-names(tab)[names(tab) == "V1"] <- "chr"
-names(tab)[names(tab) == "V2"] <- "position"
-names(tab)[names(tab) == "V4"] <- "REF"
-names(tab)[names(tab) == "V5"] <- "ALT"
+#tab<- tab[,c(1,2,4,5)]
+#names(tab)[names(tab) == "V1"] <- "chr"
+#names(tab)[names(tab) == "V2"] <- "position"
+#names(tab)[names(tab) == "V4"] <- "REF"
+#names(tab)[names(tab) == "V5"] <- "ALT"
 
 #to_delete <- list()
 #for(i in 1:length(tab)){
@@ -30,7 +30,7 @@ names(tab)[names(tab) == "V5"] <- "ALT"
 #tab = tab[to_delete,]
 #tab <- tab[ complete.cases( sapply( tab$chr, strtoi ) ), ]
 
-write.csv(tab, paste0(sample,'_fitms_input.csv'))
+#write.csv(tab, paste0(sample,'_fitms_input.csv'))
 
 #optinal read in and out tab
 #tab  <- write.table('C:/Users/Danie/Documents/scanb/MTR/PD31029a/input/PD31029a_caveman_MTR.txt')
