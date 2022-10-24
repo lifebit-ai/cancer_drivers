@@ -17,7 +17,6 @@ names(tab)[names(tab) == "V2"] <- "position"
 names(tab)[names(tab) == "V4"] <- "REF"
 names(tab)[names(tab) == "V5"] <- "ALT"
 
-write.csv(tab, paste0(sample,'_fitms_input.csv'))
 
 #to_delete <- list()
 #for(i in 1:length(tab)){
@@ -34,11 +33,12 @@ write.csv(tab, paste0(sample,'_fitms_input.csv'))
 #tab  <- write.table('C:/Users/Danie/Documents/scanb/MTR/PD31029a/input/PD31029a_caveman_MTR.txt')
 #tab  <- read.table('C:/Users/Danie/Documents/scanb/MTR/PD31029a/input/PD31029a_caveman_MTR.txt')
 
-#organ = "Breast"
-#genome.v  ="hg38"
+organ = "Breast"
+genome.v  ="hg38"
 #print(head(tab))
-#res <- tabToSNVcatalogue(tab, genome.v)
-#df <- data.frame(res$catalogue)
+res <- tabToSNVcatalogue(tab, genome.v)
+df <- data.frame(res$catalogue)
+write.csv(tab, paste0(sample,'_fitms_input.csv'))
 #write.csv(df, paste0(sample,'_catalogue.csv'))
 
 
