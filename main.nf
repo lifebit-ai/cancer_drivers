@@ -13,6 +13,9 @@ process  CloudOS_MTR_input{
     container = 'dockeraccountdani/fitms2:latest' 
     tag"$tumour_sample_platekey"
     publishDir "${params.outdir}/$tumour_sample_platekey", mode: 'copy'
+    publishDir "${params.outdir}/$tumour_sample_platekey/fit_out/", mode: 'copy'
+    publishDir "${params.outdir}/$tumour_sample_platekey/fit_out/selected_solutions_$tumour_sample_platekey", mode: 'copy'
+    //publishDir "${params.outdir}/$tumour_sample_platekey/fit_out/other_solutions_$tumour_sample_platekey", mode: 'copy'
 
     input:
     set val(tumour_sample_platekey), file(mtr_input) from ch_input
@@ -20,12 +23,11 @@ process  CloudOS_MTR_input{
     output:
     file "*_SNV_catalogues.pdf"
     file "*_catalogue.csv"
-    //file "*.pdf"
-    //file "*.tsv"
-    //file "*_fitms_input.csv"
-    //file "output.txt"
-    file "/*_fit_out/"
-
+    file "${params.outdir}/$tumour_sample_platekey/fit_out/selected_solutions_$tumour_sample_platekey/*.pdf"
+    file "${params.outdir}/$tumour_sample_platekey/fit_out/selected_solutions_$tumour_sample_platekey/exposures.tsv"
+    file "${params.outdir}/$tumour_sample_platekey/fit_out/*.tsv"
+    file "${params.outdir}/$tumour_sample_platekey/fit_out/*.pdf"
+    
     script:
     """
     fitms_nf.R '$tumour_sample_platekey' '$mtr_input'
