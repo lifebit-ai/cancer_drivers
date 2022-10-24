@@ -1,16 +1,12 @@
 #!/usr/local/bin/Rscript
 library(VariantAnnotation)
 library(signature.tools.lib)
+args = commandArgs(trailingOnly=TRUE)
+sample <- args[1]
+mtr_input <- args[2]
 fileConn<-file("output.txt")
-writeLines(c("Hello","World"), fileConn)
+writeLines(c(sample), fileConn)
 close(fileConn)
-
-#args = commandArgs(trailingOnly=TRUE)
-
-
-#sample <- args[1]
-#mtr_input <- args[2]
-
 
 #read in the input file to mutationtimer
 #tab  <- read.table(mtr_input, sep='\t')
