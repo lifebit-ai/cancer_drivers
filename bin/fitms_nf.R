@@ -27,7 +27,7 @@ for(i in 1:length(tab)){
   to_delete <- append(to_delete, i)
   }
 }
-tab <- tab %>%  filter(!row_number() %in% to_delete)
+tab = tab[to_delete,]
 
 fileConn<-file("output.txt")
 writeLines(to_delete, fileConn)
