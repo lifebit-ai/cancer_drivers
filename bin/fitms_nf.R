@@ -17,7 +17,14 @@ names(tab)[names(tab) == "V2"] <- "position"
 names(tab)[names(tab) == "V4"] <- "REF"
 names(tab)[names(tab) == "V5"] <- "ALT"
 
+chroms <- c("1",  "10","11", "12", "13", "14", "15", "16", "17", "18", "19", "2",  "20", "21", "22", "3",  "4" , "5", "6",  "7",  "8","9" ,"X", "Y")
 
+
+for(i in 1:nrow(tab)){
+  if is.element(tab$chr[i], chroms) != TRUE{
+    tab <- tab[-c(i), ]
+  }
+}
 #to_delete <- list()
 #for(i in 1:length(tab)){
 #  if(is.na(suppressWarnings(as.numeric(as.character(tab$chr[i])))) == TRUE){
