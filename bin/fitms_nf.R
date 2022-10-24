@@ -21,17 +21,15 @@ names(tab)[names(tab) == "V2"] <- "position"
 names(tab)[names(tab) == "V4"] <- "REF"
 names(tab)[names(tab) == "V5"] <- "ALT"
 
-to_delete <- list()
-for(i in 1:length(tab)){
-  if(is.na(suppressWarnings(as.numeric(as.character(tab$chr[i])))) == TRUE){
-  to_delete <- append(to_delete, i)
-  }
-}
-tab = tab[to_delete,]
+#to_delete <- list()
+#for(i in 1:length(tab)){
+#  if(is.na(suppressWarnings(as.numeric(as.character(tab$chr[i])))) == TRUE){
+#  to_delete <- append(to_delete, i)
+#  }
+#}
+#tab = tab[to_delete,]
+tab <- tab[ complete.cases( sapply( tab$chr, strtoi ) ), ]
 
-fileConn<-file("output.txt")
-writeLines(to_delete, fileConn)
-close(fileConn)
 
 #optinal read in and out tab
 #tab  <- write.table('C:/Users/Danie/Documents/scanb/MTR/PD31029a/input/PD31029a_caveman_MTR.txt')
