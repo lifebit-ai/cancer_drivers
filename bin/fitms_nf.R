@@ -4,18 +4,20 @@ library(signature.tools.lib)
 args = commandArgs(trailingOnly=TRUE)
 sample <- args[1]
 mtr_input <- args[2]
-fileConn<-file("output.txt")
-writeLines(c(sample), fileConn)
-close(fileConn)
+#fileConn<-file("output.txt")
+#writeLines(c(sample), fileConn)
+#close(fileConn)
 
 #read in the input file to mutationtimer
-#tab  <- read.table(mtr_input, sep='\t')
-##change the format of the input file to that of FitMS
-#tab<- tab[,c(1,2,4,5)]
-#names(tab)[names(tab) == "V1"] <- "chr"
-#names(tab)[names(tab) == "V2"] <- "position"
-#names(tab)[names(tab) == "V4"] <- "REF"
-#names(tab)[names(tab) == "V5"] <- "ALT"
+tab  <- read.table(mtr_input, sep='\t')
+#change the format of the input file to that of FitMS
+tab<- tab[,c(1,2,4,5)]
+names(tab)[names(tab) == "V1"] <- "chr"
+names(tab)[names(tab) == "V2"] <- "position"
+names(tab)[names(tab) == "V4"] <- "REF"
+names(tab)[names(tab) == "V5"] <- "ALT"
+
+write.csv(tab, paste0(sample,'_fitms_input.csv'))
 
 #to_delete <- list()
 #for(i in 1:length(tab)){
