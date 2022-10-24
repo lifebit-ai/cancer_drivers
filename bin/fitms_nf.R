@@ -38,16 +38,15 @@ genome.v  ="hg38"
 #print(head(tab))
 res <- tabToSNVcatalogue(tab, genome.v)
 df <- data.frame(res$catalogue)
-write.csv(tab, paste0(sample,'_fitms_input.csv'))
-#write.csv(df, paste0(sample,'_catalogue.csv'))
+#write.csv(tab, paste0(sample,'_fitms_input.csv'))
+write.csv(df, paste0(sample,'_catalogue.csv'))
 
+res <-FitMS(catalogues = df, 
+           organ =organ, 
+           exposureFilterType="giniScaledThreshold",
+           useBootstrap = TRUE, 
+           nboot = 200)
 
-#res <-FitMS(catalogues = df, 
-#           organ =organ, 
-#           exposureFilterType="giniScaledThreshold",
-#           useBootstrap = TRUE, 
-#           nboot = 200)
-
-#plotSubsSignatures(signature_data_matrix = df,output_file = paste0(sample, "_SNV_catalogues.pdf"))
+plotSubsSignatures(signature_data_matrix = df,output_file = paste0(sample, "_SNV_catalogues.pdf"))
 
 #plotFitMS(res, paste0(corepath, '/', sample, sep= ""))
