@@ -56,4 +56,4 @@ res <-FitMS(catalogues = df,
 
 plotSubsSignatures(signature_data_matrix = df,output_file = paste0(sample, "_SNV_catalogues.pdf"))
 
-write.csv(res$exposures, sep='\t')
+write.csv(res$exposures, 'exposures.tsv', sep='\t')
