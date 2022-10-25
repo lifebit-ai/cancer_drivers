@@ -45,7 +45,7 @@ genome.v  ="hg38"
 #print(head(tab))
 res <- tabToSNVcatalogue(tab, genome.v)
 df <- data.frame(res$catalogue)
-#write.csv(tab, paste0(sample,'_fitms_input.csv'))
+names(df)[names(df) == "catalogue"] <- sample
 write.csv(df, paste0(sample,'_catalogue.csv'))
 
 res <-FitMS(catalogues = df, 
