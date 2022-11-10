@@ -16,21 +16,16 @@ names(df)[names(df) == "catalogue"] <- sample
 write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 
 
-#organ = "Breast"
-#genome.v  ="hg38"
-#print(head(tab))
-#res <- tabToSNVcatalogue(tab, genome.v)
-#df <- data.frame(res$catalogue)
-#names(df)[names(df) == "catalogue"] <- sample
-#write.csv(df, paste0(sample,'_catalogue.csv'))
+organ = "Breast"
+genome.v  ="hg38"
 
-#res <-FitMS(catalogues = df, 
-#           organ =organ, 
-#           exposureFilterType="giniScaledThreshold",
-#           useBootstrap = TRUE, 
-#           nboot = 200)
+res <-FitMS(catalogues = df, 
+           organ =organ, 
+           exposureFilterType="giniScaledThreshold",
+           useBootstrap = TRUE, 
+           nboot = 200)
 
-#plotSubsSignatures(signature_data_matrix = df,output_file = paste0(sample, "_SNV_catalogues.pdf"))
+plotRearrSignatures(signature_data_matrix = df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
 #write.csv(res$exposures, 'exposures.tsv', sep='\t')
-#plotFitMS(res, 'results/')
+plotFitMS(res, 'rearrangement_sigs_results/')
