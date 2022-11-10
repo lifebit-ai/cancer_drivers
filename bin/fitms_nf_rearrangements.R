@@ -6,8 +6,7 @@ sample <- args[1]
 sv <- args[2]
 
 ##read in the bedpe file
-sv_bedpe <- read.table(sv,sep = "\t",header = TRUE,
-                     stringsAsFactors = FALSE,check.names = FALSE)
+sv_bedpe <- read.table(sv,sep = "\t",header)
 #build a catalogue from the bedpe file
 res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
