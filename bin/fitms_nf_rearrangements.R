@@ -15,8 +15,7 @@ res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
 #write.csv(sv_bedpe, paste0(sample,'_rearrangement_catalogue.csv'))
 
-df <- data.frame(res.cat)
-write.csv(res.cat, paste0(sample,'_rearrangement_catalogue_two.csv'))
+df <- data.frame(res.cat$rearr_catalogue)
 write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 #names(df)[names(df) == "catalogue"] <- sample
 
