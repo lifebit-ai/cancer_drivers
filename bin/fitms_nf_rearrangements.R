@@ -6,15 +6,15 @@ sample <- args[1]
 sv <- args[2]
 
 ##read in the bedpe file
-sv_bedpe <- read.table(sv,sep = "\t")
+sv_bedpe <- read.table(sv,sep = "\t", header = TRUE,stringsAsFactors = FALSE,check.names = FALSE)
 write.csv(sv_bedpe, paste0(sample,'_sv_bedpe_check.csv'))
 
 #build a catalogue from the bedpe file
-#res.cat <- bedpeToRearrCatalogue(sv_bedpe)
+res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
 #df <- data.frame(res.cat$catalogue)
 #names(df)[names(df) == "catalogue"] <- sample
-#write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
+write.csv(svbedpe, paste0(sample,'_rearrangement_catalogue.csv'))
 
 
 #organ = "Breast"
