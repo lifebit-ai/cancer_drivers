@@ -23,13 +23,12 @@ write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 organ = "Breast"
 genome.v  ="hg38"
 
-res <-FitMS(catalogues = df, 
-           organ =organ, 
-           exposureFilterType="giniScaledThreshold",
+res <-Fit(catalogues = df, 
+           getOrganSignatures(organ),
            useBootstrap = TRUE, 
            nboot = 200)
 
 plotRearrSignatures(signature_data_matrix = df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
 #write.csv(res$exposures, 'exposures.tsv', sep='\t')
-plotFitMS(res, 'rearrangement_sigs_results/')
+plotFit(res, 'rearrangement_sigs_results/')
