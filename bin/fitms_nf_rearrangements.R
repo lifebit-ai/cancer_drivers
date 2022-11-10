@@ -15,21 +15,22 @@ res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
 #write.csv(sv_bedpe, paste0(sample,'_rearrangement_catalogue.csv'))
 
-df <- data.frame(res.cat$catalogue)
+df <- data.frame(res.cat)
+write.csv(res.cat, paste0(sample,'_rearrangement_catalogue_two.csv'))
 write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 #names(df)[names(df) == "catalogue"] <- sample
 
 
-organ = "Breast"
-genome.v  ="hg38"
+#organ = "Breast"
+#genome.v  ="hg38"
 
-res <-FitMS(catalogues = df, 
-           organ =organ, 
-           exposureFilterType="giniScaledThreshold",
-           useBootstrap = TRUE, 
-           nboot = 200)
+#res <-FitMS(catalogues = df, 
+#           organ =organ, 
+#           exposureFilterType="giniScaledThreshold",
+#           useBootstrap = TRUE, 
+#           nboot = 200)
 
-plotRearrSignatures(signature_data_matrix = df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
+#plotRearrSignatures(signature_data_matrix = df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
 #write.csv(res$exposures, 'exposures.tsv', sep='\t')
-plotFitMS(res, 'rearrangement_sigs_results/')
+#plotFitMS(res, 'rearrangement_sigs_results/')
