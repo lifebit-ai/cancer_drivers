@@ -14,7 +14,7 @@ res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
 #df <- data.frame(res.cat$catalogue)
 #names(df)[names(df) == "catalogue"] <- sample
-write.csv(svbedpe, paste0(sample,'_rearrangement_catalogue.csv'))
+write.csv(sv_bedpe, paste0(sample,'_rearrangement_catalogue.csv'))
 
 
 #organ = "Breast"
