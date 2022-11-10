@@ -7,6 +7,8 @@ sv <- args[2]
 
 ##read in the bedpe file
 sv_bedpe <- read.table(sv,sep = "\t",header)
+write.csv(sv_bedpe, paste0(sample,'_sv_bedpe_check.csv'))
+
 #build a catalogue from the bedpe file
 res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
