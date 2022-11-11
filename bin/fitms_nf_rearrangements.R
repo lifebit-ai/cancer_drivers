@@ -19,16 +19,17 @@ df <- data.frame(res.cat$rearr_catalogue)
 write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 #names(df)[names(df) == "catalogue"] <- sample
 
+plotRearrSignatures(signature_data_matrix = res.cat,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
+
 
 organ = "Breast"
 genome.v  ="hg38"
 
-res <-Fit(catalogues = df, 
+res <-Fit(catalogues = res.cat, 
            getOrganSignatures(organ),
            useBootstrap = TRUE, 
            nboot = 200)
 
-plotRearrSignatures(signature_data_matrix = df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
 #write.csv(res$exposures, 'exposures.tsv', sep='\t')
 plotFit(res, 'rearrangement_sigs_results/')
