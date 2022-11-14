@@ -23,7 +23,7 @@ process  CloudOS_MTR_input{
     //file "output.txt"
     //file "*_sv_bedpe_check.csv"
     //file "exposures.tsv"
-    //path "rearrangement_sigs_results/*"
+    path "rearrangement_sigs_results/*"
     
     script:
     """
