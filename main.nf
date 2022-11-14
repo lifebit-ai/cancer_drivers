@@ -18,9 +18,9 @@ process  CloudOS_MTR_input{
     set val(tumour_sample_platekey), file(sv) from ch_input
 
     output:
-    //file "*_rearrangement_catalogues.pdf"
-    //file "*_rearrangement_catalogue.csv"
-    file "output.txt"
+    file "*_rearrangement_catalogues.pdf"
+    file "*_rearrangement_catalogue.csv"
+    //file "output.txt"
     //file "*_sv_bedpe_check.csv"
     //file "exposures.tsv"
     //path "rearrangement_sigs_results/*"
