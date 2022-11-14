@@ -22,7 +22,7 @@ close(fileConn)
 #df <- subset(df, select=-c(1))
 #names(df)[names(df) == "catalogue"] <- sample
 
-plotRearrSignatures(res.cat$rearr_catalogue,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
+#plotRearrSignatures(res.cat$rearr_catalogue,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
 
 #organ = "Breast"
