@@ -12,23 +12,22 @@ sv_bedpe <- read.table(sv,sep = "\t", header = TRUE,stringsAsFactors = FALSE,che
 #build a catalogue from the bedpe file
 res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
-
-#write.csv(sv_bedpe, paste0(sample,'_rearrangement_catalogue.csv'))
-
 df <- data.frame(res.cat$rearr_catalogue)
 write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
-#names(df)[names(df) == "catalogue"] <- sample
+rownames(df) <- df[[1]]
+df <- df[,-1]
+names(df)[names(df) == "catalogue"] <- sample
 
-plotRearrSignatures(signature_data_matrix = res.cat$rearr_catalogue,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
+plotRearrSignatures(signature_data_matrix = df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
 
 organ = "Breast"
 genome.v  ="hg38"
 
-res <-Fit(catalogues = res.cat$rearr_catalogue, 
-           getOrganSignatures(organ),
-           useBootstrap = TRUE, 
-           nboot = 200)
+res <-Fit(catalogues = df, 
+          signatures = getOrganSignatures(organ = organ, typemut = 'rearr',version='latest'),
+          useBootstrap = TRUE, 
+          nboot = 200)
 
 
 #write.csv(res$exposures, 'exposures.tsv', sep='\t')
