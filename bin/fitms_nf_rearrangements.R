@@ -16,7 +16,7 @@ df <- data.frame(res.cat$rearr_catalogue)
 write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 rownames(df) <- df[[1]]
 df <- df[,-1]
-names(df)[names(df) == "catalogue"] <- sample
+#names(df)[names(df) == "catalogue"] <- sample
 
 #plotRearrSignatures(signature_data_matrix = df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
