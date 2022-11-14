@@ -17,7 +17,7 @@ rowlist <- list(row.names(df))
 fileConn<-file("output.txt")
 writeLines(rowlist, fileConn)
 close(fileConn)
-'write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
+#write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 #rownames(df) <- df[[1]]
 #df <- subset(df, select=-c(1))
 #names(df)[names(df) == "catalogue"] <- sample
