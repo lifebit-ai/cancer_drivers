@@ -13,16 +13,12 @@ sv_bedpe <- read.table(sv,sep = "\t", header = TRUE,stringsAsFactors = FALSE,che
 res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
 df <- data.frame(res.cat$rearr_catalogue)
-rowlist <- list(row.names(df))
-fileConn<-file("output.txt")
-writeLines(rowlist, fileConn)
-close(fileConn)
-#write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
+write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 #rownames(df) <- df[[1]]
 #df <- subset(df, select=-c(1))
 #names(df)[names(df) == "catalogue"] <- sample
 
-#plotRearrSignatures(res.cat$rearr_catalogue,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
+plotRearrSignatures(df,output_file = paste0(sample, "_rearrangement_catalogues.pdf"))
 
 
 #organ = "Breast"
