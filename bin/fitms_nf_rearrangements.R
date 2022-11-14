@@ -12,7 +12,7 @@ sv_bedpe <- read.table(sv,sep = "\t", header = TRUE,stringsAsFactors = FALSE,che
 #build a catalogue from the bedpe file
 res.cat <- bedpeToRearrCatalogue(sv_bedpe)
 
-df <- data.frame(res.cat$rearr_catalogue)
+df <- data.frame(res.cat)
 write.csv(df, paste0(sample,'_rearrangement_catalogue.csv'))
 rownames(df) <- df[[1]]
 df <- subset(df, select=-c(1))
