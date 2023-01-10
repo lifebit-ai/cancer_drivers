@@ -50,9 +50,10 @@ write.csv(df, paste0(sample,'_catalogue.csv'))
 
 res <-FitMS(catalogues = df, 
            organ =organ, 
-           #exposureFilterType="giniScaledThreshold",
            useBootstrap = TRUE, 
            nboot = 200)
+
+#exposureFilterType="giniScaledThreshold",
 
 plotSubsSignatures(signature_data_matrix = df,output_file = paste0(sample, "_SNV_catalogues.pdf"))
 
