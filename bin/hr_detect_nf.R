@@ -9,7 +9,7 @@ svcat_path <- args[3]
 cnv_path <- args[4]
 indel_highspecific_path <- args[5]
 
-genome.v = 'hg38'
+genomev = 'hg38'
 ##make the empty input matrix
 col_hrdetect <- c("del.mh.prop", "SNV3", "SV3", "SV5", "hrd", "SNV8")
 input_matrix <- matrix(NA,nrow = 1,ncol = length(col_hrdetect),dimnames = list(sample,col_hrdetect))
@@ -70,7 +70,7 @@ names(cnvs) <- sample
 
 
 res <- HRDetect_pipeline(input_matrix,
-                         genome.v = genome.v,
+                         genome.v = genomev,
                          SNV_signature_version = "RefSigv2", 
                          SV_catalogues = svcat,
                          Indels tab files = indeltab,
