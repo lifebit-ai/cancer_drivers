@@ -24,6 +24,6 @@ process  CloudOS_MTR_input{
     
     script:
     """
-    fitms_nf.R '$tumour_sample_platekey' '$snvcat_path' '$svcat_path' '$cnv_path' '$indel_highspecific_path'
+    hr_detect_nf.R '$tumour_sample_platekey' '$snvcat_path' '$svcat_path' '$cnv_path' '$indel_highspecific_path'
     """ 
 }
