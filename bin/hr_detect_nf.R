@@ -54,11 +54,12 @@ res <- HRDetect_pipeline(input_matrix,
                          Indels_tab_files = indeltab,
                          CNV_tab_files = cnvs,
                          SNV_catalogues = snvcat,
+                         organ = 'Breast',
                          nparallel = 2,
                          exposureFilterTypeFit = "fixedThreshold", 
                          threshold_percentFit = 5,
                          bootstrapSignatureFit = TRUE, 
-                         nbootFit = 100,
+                         nbootFit = 200,
                          threshold_p.valueFit = 0.05)
                          #bootstrapHRDetectScores = TRUE)
 
