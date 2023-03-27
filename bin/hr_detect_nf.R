@@ -57,7 +57,7 @@ names(cnvs)[names (cnvs) =='seqnames'] <- 'Chromosome'
 names(cnvs)[names(cnvs) =='start'] <- 'chromStart'
 names(cnvs)[names(cnvs) =='end'] <- 'chromEnd'
 cnvs['total.copy.number.inNormal'] <- rep(2,nrow(cnvs))
-cnvs['minor.copy.number.in Normal'] <- rep(1, nrow(cnvs))
+cnvs['minor.copy.number.inNormal'] <- rep(1, nrow(cnvs))
 names(cnvs)[names(cnvs) =='minor_cn'] <- 'minor.copy.number.inTumour'
 cnvs['total.copy.number.inTumour'] <- cnvs['major_cn'] + cnvs['minor.copy.number.inTumour']
 #select only desired columns and put in right order
