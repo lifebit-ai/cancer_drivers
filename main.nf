@@ -18,9 +18,7 @@ process  CloudOS_MTR_input{
     set val(tumour_sample_platekey), file(snvcat_path), file(svcat_path), file(cnv_path), file(indel_highspecific_path) from ch_input
 
     output:
-    file "*_cnvs_for_hrdetect.csv"
     file "*_hr_detect.tsv"
-    //path "results/*"
     
     script:
     """
