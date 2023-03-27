@@ -61,7 +61,7 @@ cnvs['minor.copy.number.in Normal'] <- rep(1, nrow(cnvs))
 names(cnvs)[names(cnvs) =='minor_cn'] <- 'minor.copy.number.inTumour'
 cnvs['total.copy.number.inTumour'] <- cnvs['major_cn'] + cnvs['minor.copy.number.inTumour']
 #select only desired columns and put in right order
-col_order <- c('seg_no', 'Chromosome', 'chromStart', 'chromEnd', 'total.copy.number.in Normal', 'minor.copy.number.in Normal', 'total.copy.number.inTumour', 'minor.copy.number.inTumour')
+col_order <- c('seg_no', 'Chromosome', 'chromStart', 'chromEnd', 'total.copy.number.inNormal', 'minor.copy.number.inNormal', 'total.copy.number.inTumour', 'minor.copy.number.inTumour')
 cnvs <- cnvs[, col_order]
 #output the table and read in the filename to a named vector
 write.table(cnvs, paste0(sample, '_cnvs_for_hrdetect.csv'), sep='\t', row.names=F, quote=F) 
@@ -77,8 +77,8 @@ res <- HRDetect_pipeline(input_matrix,
                          CNV tab files = cnvs,
                          SNV_catalogues = snvcat,
                          nparallel = 2,
-                         exposureFilter TypeFit = "fixedThreshold", 
-                         gini ThresholdScaling Fit = 10, 
+                         exposureFilterTypeFit = "fixedThreshold", 
+                         giniThresholdScalingFit = 10, 
                          threshold_percentFit = 5,
                          bootstrapSignatureFit = TRUE, 
                          nbootFit = 100,
