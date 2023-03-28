@@ -50,7 +50,7 @@ relevant_terms = ['splice_acceptor_variant',
 mane = pd.read_csv(mane_path, sep='\t')
 mane[['transcript_ID', 'to_del2']] = mane['name'].str.split('.', 1, expand=True)
 mane[['gene_ID', 'to_del2']] = mane['geneName'].str.split('.', 1, expand=True)
-mane = mane.rename(columns={'#chrom': 'chr', 'chrom Start': 'start', 'chrom End': 'end', 'geneName2': 'gene_name' })
+mane = mane.rename(columns={'#chrom': 'chr', 'chromStart': 'start', 'chromEnd': 'end', 'geneName2': 'gene_name' })
 mane['chr'] = mane['chr'].str.replace('chr', '')
 mane = mane[['chr', 'start', 'end', 'transcript_ID','gene_ID', 'gene_name']]
 #mane.to_csv('start_end_pos_of_mane_transcript_all_human_genes.csv')
