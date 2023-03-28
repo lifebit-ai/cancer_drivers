@@ -100,6 +100,12 @@ sampcsqt_type_nocantran =sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==
 sampcsqt_type_nocantran = sampcsqt_type_nocantran.loc[sampcsqt_type_nocantran['mane_tran'] == 'NoManeTran']
 sampcsqt_type_nocantran.to_csv(sample + '_coding_mutations_no_mane_transcript_maps.csv')
 ###
+
+#filter out rows where there is more than one canonical transcript in the info column
+sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==1]
+sampcsqt_type['mane_tran'] = flatten(sampcsqt_type['mane_tran'])
+sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'] != 'NoManeTran']
+sampcsqt_type.index = pd.RangeIndex(len(sampcsqt_type.index))
 sampcsqt_type.to_csv(sample + '_sampcsqt_type.csv')
 
 
