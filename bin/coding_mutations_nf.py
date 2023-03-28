@@ -100,6 +100,7 @@ sampcsqt_type_nocantran =sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==
 sampcsqt_type_nocantran = sampcsqt_type_nocantran.loc[sampcsqt_type_nocantran['mane_tran'] == 'NoManeTran']
 sampcsqt_type_nocantran.to_csv(sample + '_coding_mutations_no_mane_transcript_maps.csv')
 ###
+sampcsqt_type.to_csv(sample + '_sampcsqt_type.csv')
 
 
 tag= 'short_run'
