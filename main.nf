@@ -19,7 +19,7 @@ process  CloudOS_MTR_input{
     set val(tumour_sample_platekey), file(annotation_vcf_path), file(mane) from ch_input
 
     output:
-    file '*_coding_mutations.csv'
+    //file '*_coding_mutations.csv'
     file '*_coding_mutations_no_mane_transcript_maps.csv'
     file '*_coding_mutations_more_than_1_mane_transcript_maps.csv'
     
