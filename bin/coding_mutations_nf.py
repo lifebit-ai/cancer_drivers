@@ -20,7 +20,7 @@ args = my_parser.parse_args()
 
 ###pull out coding mutations
 sample = args.sample
-annotation_vcf_path = args.somatic_small_variants_annotation_vcf
+annotation_vcf_path = args.annotation_vcf_path
 mane_path = args.mane
 
 
