@@ -102,83 +102,84 @@ sampcsqt_type_nocantran.to_csv(sample + '_coding_mutations_no_mane_transcript_ma
 ###
 
 
+tag= 'short_run'
+if tag != 'short_run':
+  if len(sampcsqt_type_over_1.index) >0:
+      variant_info = list()
+      VAF=list()
+      for row in range(len(sampcsqt_type_over_1.index)): 
+          variant_info_temp = list()
+          enst_is_coding = list()
+          if sampcsqt_type_over_1['INFO'][row].find('VAF')!= -1:
+              VAF.append(sampcsqt_type['INFO'][row].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
+          else:
+              VAF.append('No Value')
+          for gene in sampcsqt_type_over_1['mane_tran'][row]:
+              if len(re.findall (gene, sampcsqt_type_over_1['INFO'][row]))==1: 
+                  #split at the ENST to next,|;
+                  outtemp = sampcsqt_type_over_1['INFO'][row].rsplit(gene, maxsplit=1)[1]
+                  outtemp = re.split(',|;', outtemp)[0]
+                  variant_info_temp.append(outtemp + '$' + gene)
+              if len(re.findall (gene, sampcsqt_type_over_1['INFO'][row])) ==2:
+                  #split at both ENST to next,|;
+                  outtemp = sampcsqt_type_over_1['INFO'][row].rsplit(gene, maxsplit=2)[2]
+                  outtemp = re.split(',|;', outtemp)[0]
+                  variant_info_temp.append(outtemp+ '$' + gene)
+          for info in variant_info_temp:
+              if any(substring in info for substring in relevant_terms):
+                  enst_is_coding.append(info)
+          variant_info.append(list(enst_is_coding))
 
-if len(sampcsqt_type_over_1.index) >0:
-    variant_info = list()
-    VAF=list()
-    for row in range(len(sampcsqt_type_over_1.index)): 
-        variant_info_temp = list()
-        enst_is_coding = list()
-        if sampcsqt_type_over_1['INFO'][row].find('VAF')!= -1:
-            VAF.append(sampcsqt_type['INFO'][row].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
-        else:
-            VAF.append('No Value')
-        for gene in sampcsqt_type_over_1['mane_tran'][row]:
-            if len(re.findall (gene, sampcsqt_type_over_1['INFO'][row]))==1: 
-                #split at the ENST to next,|;
-                outtemp = sampcsqt_type_over_1['INFO'][row].rsplit(gene, maxsplit=1)[1]
-                outtemp = re.split(',|;', outtemp)[0]
-                variant_info_temp.append(outtemp + '$' + gene)
-            if len(re.findall (gene, sampcsqt_type_over_1['INFO'][row])) ==2:
-                #split at both ENST to next,|;
-                outtemp = sampcsqt_type_over_1['INFO'][row].rsplit(gene, maxsplit=2)[2]
-                outtemp = re.split(',|;', outtemp)[0]
-                variant_info_temp.append(outtemp+ '$' + gene)
-        for info in variant_info_temp:
-            if any(substring in info for substring in relevant_terms):
-                enst_is_coding.append(info)
-        variant_info.append(list(enst_is_coding))
-        
-    for element in variant_info:
-        if len(element) >1:
-            if element[0] == element[1]:
-                element.remove(element[1])
-    sampcsqt_type_over_1['variant_info'] =variant_info
-    sampcsqt_type_over_1['VAF'] =VAF
-    sampcsqt_type_over_1=sampcsqt_type_over_1.loc[sampcsqt_type_over_1['variant_info'].map(len)==1]
-    if len(sampcsqt_type_over_1.index) > 0:
-        sampcsqt_type_over_1['variant_info'] = flatten(sampcsqt_type_over_1['variant_info'])
-        sampcsqt_type_over_1[['variant_info', 'mane_tran']] = sampcsqt_type_over_1['variant_info'].str.split('$', 1, expand=True)
-    else:
-        sampcsqt_type_over_1 = None
-#filter out rows where there is more than one canonical transcript in the info column
-sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==1]
-sampcsqt_type['mane_tran'] = flatten(sampcsqt_type['mane_tran'])
-sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'] != 'NoManeTran']
-sampcsqt_type.index = pd.RangeIndex(len(sampcsqt_type.index))
+      for element in variant_info:
+          if len(element) >1:
+              if element[0] == element[1]:
+                  element.remove(element[1])
+      sampcsqt_type_over_1['variant_info'] =variant_info
+      sampcsqt_type_over_1['VAF'] =VAF
+      sampcsqt_type_over_1=sampcsqt_type_over_1.loc[sampcsqt_type_over_1['variant_info'].map(len)==1]
+      if len(sampcsqt_type_over_1.index) > 0:
+          sampcsqt_type_over_1['variant_info'] = flatten(sampcsqt_type_over_1['variant_info'])
+          sampcsqt_type_over_1[['variant_info', 'mane_tran']] = sampcsqt_type_over_1['variant_info'].str.split('$', 1, expand=True)
+      else:
+          sampcsqt_type_over_1 = None
+  #filter out rows where there is more than one canonical transcript in the info column
+  sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==1]
+  sampcsqt_type['mane_tran'] = flatten(sampcsqt_type['mane_tran'])
+  sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'] != 'NoManeTran']
+  sampcsqt_type.index = pd.RangeIndex(len(sampcsqt_type.index))
 
-#pull out the variant info - split into the two cases os whether the ENST is written once or twice in the info column SomaticFisherPhred = list()
-VAF= list()
-phyloP = list()
-variant_info = list()
-for gene in range(len(sampcsqt_type.index)):
-    if sampcsqt_type['INFO'][gene].find('VAF') != -1:
-        VAF.append(sampcsqt_type['INFO'][gene].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
-    else:
-        VAF.append('No Value')
-    if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==1:
-        #split at the ENST to next,|;
-        outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=1)[1]
-        outtemp = re.split(',|;', outtemp)[0]
-        variant_info.append(outtemp)
-    if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==2:
-        #split at both ENST to next,];
-        outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=2)[2]
-        outtemp = re.split(',|;', outtemp)[0]
-        variant_info.append(outtemp)
-        
-        
-sampcsqt_type['variant_info'] = variant_info
-sampcsqt_type['VAF']=VAF
+  #pull out the variant info - split into the two cases os whether the ENST is written once or twice in the info column SomaticFisherPhred = list()
+  VAF= list()
+  phyloP = list()
+  variant_info = list()
+  for gene in range(len(sampcsqt_type.index)):
+      if sampcsqt_type['INFO'][gene].find('VAF') != -1:
+          VAF.append(sampcsqt_type['INFO'][gene].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
+      else:
+          VAF.append('No Value')
+      if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==1:
+          #split at the ENST to next,|;
+          outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=1)[1]
+          outtemp = re.split(',|;', outtemp)[0]
+          variant_info.append(outtemp)
+      if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==2:
+          #split at both ENST to next,];
+          outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=2)[2]
+          outtemp = re.split(',|;', outtemp)[0]
+          variant_info.append(outtemp)
 
-if sampcsqt_type_over_1 is not None:
-    if len(sampcsqt_type_over_1.index)>1:
-        sampcsqt_type_full = pd.concat([sampcsqt_type,sampcsqt_type_over_1])
-        sampcsqt_type_full = sampcsqt_type_full[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
-        sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
 
-sampcsqt_type = None
-sampcsqt_type_over_1 = None
-samp = None
-sampcsqt_type_full = None
-variant_info = None
+  sampcsqt_type['variant_info'] = variant_info
+  sampcsqt_type['VAF']=VAF
+
+  if sampcsqt_type_over_1 is not None:
+      if len(sampcsqt_type_over_1.index)>1:
+          sampcsqt_type_full = pd.concat([sampcsqt_type,sampcsqt_type_over_1])
+          sampcsqt_type_full = sampcsqt_type_full[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
+          sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
+
+  sampcsqt_type = None
+  sampcsqt_type_over_1 = None
+  samp = None
+  sampcsqt_type_full = None
+  variant_info = None
