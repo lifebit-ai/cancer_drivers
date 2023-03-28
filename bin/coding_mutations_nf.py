@@ -9,7 +9,7 @@ my_parser.add_argument('-sample',
                        type=str,
                        help='sample')
 my_parser.add_argument('-annotation_vcf_path',
-                       type=float,
+                       type=str,
                        help='annotation_vcf_path')
 my_parser.add_argument('-mane',
                        type=str,
