@@ -175,7 +175,10 @@ if sampcsqt_type_over_1 is not None:
     if len(sampcsqt_type_over_1.index)>1:
         sampcsqt_type_full = pd.concat([sampcsqt_type,sampcsqt_type_over_1])
         sampcsqt_type_full = sampcsqt_type_full[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
-        sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
+        sampcsqt_type_full.to_csv(sample + '_coding_mutations.csv')
+else:
+  sampcsqt_type = sampcsqt_type[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
+  sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
 
 sampcsqt_type = None
 sampcsqt_type_over_1 = None
