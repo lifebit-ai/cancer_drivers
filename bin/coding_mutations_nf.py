@@ -176,16 +176,16 @@ if len(sampcsqt_type.index)>0:
   if sampcsqt_type_over_1 is not None and len(sampcsqt_type_over_1.index)>0:
           sampcsqt_type_full = pd.concat([sampcsqt_type,sampcsqt_type_over_1])
           sampcsqt_type_full = sampcsqt_type_full[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
-          sampcsqt_type_full.to_csv(sample + '_coding_mutations.csv')
+          sampcsqt_type_full.to_csv(sample + '_coding_mutations.csv', index=False)
   else:
     sampcsqt_type = sampcsqt_type[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
-    sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
+    sampcsqt_type.to_csv(sample + '_coding_mutations.csv', index=False)
 elif len(sampcsqt_type.index)<1 and len(sampcsqt_type_over_1.index)>0:
     sampcsqt_type_over_1 = sampcsqt_type_over_1[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
-    sampcsqt_type_over_1.to_csv(sample + '_coding_mutations.csv')
+    sampcsqt_type_over_1.to_csv(sample + '_coding_mutations.csv', index=False)
 else:
   df = pd.DataFrame(columns=['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF'])
-  df.to_csv(sample + '_coding_mutations.csv')
+  df.to_csv(sample + '_coding_mutations.csv', index=False)
   
 
 sampcsqt_type = None
