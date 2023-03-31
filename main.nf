@@ -23,6 +23,7 @@ process  CloudOS_MTR_input{
     file '*_coding_mutations_no_mane_transcript_maps.csv'
     file '*_coding_mutations_more_than_1_mane_transcript_maps.csv'
     file '*_sampcsqt_type.csv'
+    file '*_cosmic_annotation_using_pos_no_indels.csv'
     
     script:
     """
