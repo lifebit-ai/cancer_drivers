@@ -149,36 +149,44 @@ if len(sampcsqt_type_over_1.index) >0:
         sampcsqt_type_over_1 = None
 
 #pull out the variant info - split into the two cases os whether the ENST is written once or twice in the info column SomaticFisherPhred = list()
-VAF= list()
-phyloP = list()
-variant_info = list()
-for gene in range(len(sampcsqt_type.index)):
-    if sampcsqt_type['INFO'][gene].find('VAF') != -1:
-        VAF.append(sampcsqt_type['INFO'][gene].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
-    else:
-        VAF.append('No Value')
-    if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==1:
-        #split at the ENST to next,|;
-        outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=1)[1]
-        outtemp = re.split(',|;', outtemp)[0]
-        variant_info.append(outtemp)
-    if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==2:
-        #split at both ENST to next,];
-        outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=2)[2]
-        outtemp = re.split(',|;', outtemp)[0]
-        variant_info.append(outtemp)
+if len(sampcsqt_type_over_1.index) >0:
+  VAF= list()
+  phyloP = list()
+  variant_info = list()
+  for gene in range(len(sampcsqt_type.index)):
+      if sampcsqt_type['INFO'][gene].find('VAF') != -1:
+          VAF.append(sampcsqt_type['INFO'][gene].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
+      else:
+          VAF.append('No Value')
+      if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==1:
+          #split at the ENST to next,|;
+          outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=1)[1]
+          outtemp = re.split(',|;', outtemp)[0]
+          variant_info.append(outtemp)
+      if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==2:
+          #split at both ENST to next,];
+          outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=2)[2]
+          outtemp = re.split(',|;', outtemp)[0]
+          variant_info.append(outtemp)
 
 
-sampcsqt_type['variant_info'] = variant_info
-sampcsqt_type['VAF']=VAF
-
-if sampcsqt_type_over_1 is not None and len(sampcsqt_type_over_1.index)>1:
-        sampcsqt_type_full = pd.concat([sampcsqt_type,sampcsqt_type_over_1])
-        sampcsqt_type_full = sampcsqt_type_full[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
-        sampcsqt_type_full.to_csv(sample + '_coding_mutations.csv')
+  sampcsqt_type['variant_info'] = variant_info
+  sampcsqt_type['VAF']=VAF
+if len(sampcsqt_type.index)>1:
+  if sampcsqt_type_over_1 is not None and len(sampcsqt_type_over_1.index)>1:
+          sampcsqt_type_full = pd.concat([sampcsqt_type,sampcsqt_type_over_1])
+          sampcsqt_type_full = sampcsqt_type_full[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
+          sampcsqt_type_full.to_csv(sample + '_coding_mutations.csv')
+  else
+    sampcsqt_type = sampcsqt_type[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
+    sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
+elif len(sampcsqt_type.index)<1 and len(sampcsqt_type_over_1.index)>1:
+    sampcsqt_type_over_1 = sampcsqt_type_over_1[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
+    sampcsqt_type_over_1.to_csv(sample + '_coding_mutations.csv')
 else:
-  sampcsqt_type = sampcsqt_type[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
-  sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
+  df = pd.DataFrame(columns=['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF'])
+  df.to_csv(sample + '_coding_mutations.csv')
+  
 
 sampcsqt_type = None
 sampcsqt_type_over_1 = None
