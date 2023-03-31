@@ -290,7 +290,7 @@ if len(coding.index) > 0:
   cosmic_dict = {}
   for cosmic_gene in set(cmc['GENE_NAME']):
       for ENSG in hgnc_d:
-          if cosmic_gene in hgnc_d[ENG]:
+          if cosmic_gene in hgnc_d[ENSG]:
               cosmic_dict[cosmic_gene] = ENSG
   ##convert to a dataframe and merge with the full cosmic database so that the ENSG names are available for every cosmic entry 
   cosmic_ENSG_GENE_NAME = pd.DataFrame.from_dict(cosmic_dict, orient='index') 
