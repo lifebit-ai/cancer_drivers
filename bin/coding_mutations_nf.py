@@ -58,7 +58,7 @@ mane = mane[['chr', 'start', 'end', 'transcript_ID','gene_ID', 'gene_name']]
 
 #samp = pd.read_csv('/home/jovyan/session_data/mounted-data/LP3000429-DNA_G03.vcf', comment='#', sep='\t', header=None)
 samp = pd.read_csv(annotation_vcf_path, comment='#', sep='\t', header=None)
-samp = samp.rename(columns={0: 'chr', 1:'pos', 2:'ID', 3:'REF', 4:'ALT', 5:'QUAL', 6:'FILTER', 7:'INFO', 8:'FORMAT',9:'TUMOR'})
+samp = samp.rename(columns={0: 'chr', 1:'pos', 2:'ID', 3:'REF', 4:'ALT', 5:'QUAL', 6:'FILTER', 7:'INFO', 8:'FORMAT',9:'NORMAL', 10:'TUMOR'})
 #CHROM POSIDREF ALT QUAL FILTER INFO FORMAT
 chroms = ['chr1', 'chr2', 'chr3', 'chr4', 'chr5', 'chr6', 'chr7', 'chr8', 'chr9', 'chr10', 'chr11', 'chr12', 'chr13', 'chr14', 'chr15', 'chr16', 'chr17', 'chr18', 'chr19', 'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
 samp = samp[samp['chr'].isin(chroms)]
@@ -96,7 +96,8 @@ sampcsqt_type_over_1 = sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)>1]
 sampcsqt_type_over_1.index = pd.RangeIndex(len(sampcsqt_type_over_1.index))
 sampcsqt_type_over_1.to_csv(sample + '_coding_mutations_more_than_1_mane_transcript_maps.csv')
 sampcsqt_type_nocantran =sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==1]
-#filter out rows where there are no canonical transcripts in the info column sampcsqt_type_nocantran['mane_tran']=flatten(sampcsqt_type_nocantran['mane_tran'])
+#filter out rows where there are no canonical transcripts in the info column 
+sampcsqt_type_nocantran['mane_tran']=flatten(sampcsqt_type_nocantran['mane_tran'])
 sampcsqt_type_nocantran = sampcsqt_type_nocantran.loc[sampcsqt_type_nocantran['mane_tran'] == 'NoManeTran']
 sampcsqt_type_nocantran.to_csv(sample + '_coding_mutations_no_mane_transcript_maps.csv')
 ###
