@@ -172,15 +172,15 @@ if len(sampcsqt_type_over_1.index) >0:
 
   sampcsqt_type['variant_info'] = variant_info
   sampcsqt_type['VAF']=VAF
-if len(sampcsqt_type.index)>1:
-  if sampcsqt_type_over_1 is not None and len(sampcsqt_type_over_1.index)>1:
+if len(sampcsqt_type.index)>0:
+  if sampcsqt_type_over_1 is not None and len(sampcsqt_type_over_1.index)>0:
           sampcsqt_type_full = pd.concat([sampcsqt_type,sampcsqt_type_over_1])
           sampcsqt_type_full = sampcsqt_type_full[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
           sampcsqt_type_full.to_csv(sample + '_coding_mutations.csv')
   else:
     sampcsqt_type = sampcsqt_type[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
     sampcsqt_type.to_csv(sample + '_coding_mutations.csv')
-elif len(sampcsqt_type.index)<1 and len(sampcsqt_type_over_1.index)>1:
+elif len(sampcsqt_type.index)<1 and len(sampcsqt_type_over_1.index)>0:
     sampcsqt_type_over_1 = sampcsqt_type_over_1[['chr', 'pos', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'TUMOR', 'mane_tran', 'variant_info', 'VAF']] 
     sampcsqt_type_over_1.to_csv(sample + '_coding_mutations.csv')
 else:
