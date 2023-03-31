@@ -116,7 +116,7 @@ if len(sampcsqt_type_over_1.index) >0:
         variant_info_temp = list()
         enst_is_coding = list()
         if sampcsqt_type_over_1['INFO'][row].find('VAF')!= -1:
-            VAF.append(sampcsqt_type['INFO'][row].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
+            VAF.append(sampcsqt_type_over_1['INFO'][row].rsplit('VAF=', maxsplit=1)[1].rsplit(';')[0])
         else:
             VAF.append('No Value')
         for gene in sampcsqt_type_over_1['mane_tran'][row]:
