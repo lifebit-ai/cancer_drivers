@@ -149,7 +149,7 @@ if len(sampcsqt_type_over_1.index) >0:
         sampcsqt_type_over_1 = None
 
 #pull out the variant info - split into the two cases os whether the ENST is written once or twice in the info column SomaticFisherPhred = list()
-if len(sampcsqt_type_over_1.index) >0:
+if len(sampcsqt_type.index) >0:
   VAF= list()
   phyloP = list()
   variant_info = list()
