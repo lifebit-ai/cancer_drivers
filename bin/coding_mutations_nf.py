@@ -280,7 +280,7 @@ if len(coding.index) > 0:
   #hgnc = pd.read_csv('/home/jovyan/session_data/MutationTimeR_Gel/hgnc_table_with_locus_type_and_ensembl_gene_id.txt', sep='\t') 
   hgnc = hgnc[hgnc['Locus type'] == 'gene with protein product']
   hgnc['all_names'] = hgnc['Approved symbol'].astype('str') + ',' + hgnc['Previous symbols'].astype('str')+','+ hgnc['Alias symbols'].astype('str') 
-  hgnc['all_names'] = hgnc['all_names'].str.replace(',nan', ")
+  hgnc['all_names'] = hgnc['all_names'].str.replace(',nan', '')
   hgnc = hgnc.reset_index(drop=True)
   for row in range(len(hgnc.index)):
       hgnc['all_names'][row] = hgnc['all_names'][row].split(',')
