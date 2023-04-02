@@ -124,7 +124,9 @@ AA = {'ALA':'A',
 
 cmc= pd.read_csv(cmc, sep=',', header = None, names=cmc_colnames)
 
-cmc= cmc[['GENE_NAME','ACCESSION_NUMBER','ONC_TSG','CGC_TIER','MUTATION_URL','LEGACY_MUTATION_ID','Mutation CDS','Mutation Description CDS','Mutation Description AA','ONTOLOGY_MUTATION_CODE',
+cmc= cmc[['GENE_NAME','ACCESSION_NUMBER','ONC_TSG','CGC_TIER','MUTATION_URL','LEGACY_MUTATION_ID','Mutation CDS','Mutation Description CDS','Mutation Description AA','Mutation AA', 'AA_MUT_START',
+       'AA_MUT_STOP', 'SHARED_AA', 'GENOMIC_WT_ALLELE_SEQ',
+       'GENOMIC_MUT_ALLELE_SEQ', 'AA_WT_ALLELE_SEQ', 'AA_MUT_ALLELE_SEQ','ONTOLOGY_MUTATION_CODE',
 'GENOMIC_MUTATION_ID','Mutation genome position GRCh38','COSMIC_SAMPLE_TESTED','COSMIC_SAMPLE_MUTATED']]
 
 hgnc = pd.read_csv(hgnc,sep='\t')
