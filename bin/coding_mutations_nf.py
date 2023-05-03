@@ -37,7 +37,7 @@ def flatten(A):
         else: rt.append(i)
     return rt
 
-##terms of interested from annoated vcf INFO column for drivers 
+##terms of interested from annoated vcf column for drivers 
 relevant_terms = ['splice_acceptor_variant',
 'splice_donor_variant',
 'stop_gained',
@@ -47,7 +47,8 @@ relevant_terms = ['splice_acceptor_variant',
 'inframe_insertion',
 'inframe_deletion',
 'missense_variant',
-'splice_donor_5th_base_variant']
+#'splice_donor_5th_base_variant'
+'splice_region_variant']
 
 
 
@@ -303,6 +304,10 @@ if len(coding.index) > 0:
 
   coding[['empty', 'cds', 'aa', 'effect', 'remaining_variant_info']] = coding['variant_info'].str.split('|', 4, expand=True)
   coding = coding[coding['effect'].isin(relevant_terms)]
+  coding_nonspliceregion = coding[coding['effect'] != 'splice_region_variant']
+  coding_spliceregion = coding[coding['effect'] == 'splice_region_variant']
+  coding_spliceregion = coding_spliceregion[coding_spliceregion['INFO'].str.contains('\+5(?=[A-Z])')] 
+  coding = pd.concat([coding_nonspliceregion,coding_spliceregion])
   coding.index = pd.RangeIndex(len(coding.index))
   for amino in AA.keys():
       for row in range(len(coding.index)):
