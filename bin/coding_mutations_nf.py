@@ -362,7 +362,7 @@ if len(coding.index) > 0:
   coding['pos_for_cosmic_comp'] = pos_for_cosmic_comp
   coding['pos_for_cosmic_comp'] = coding['pos_for_cosmic_comp'].str.replace('chr', '')
   
-  coding.to_csv(sample+ '_pre_cosmic_for_splice_investigation.csv')
+  #coding.to_csv(sample+ '_pre_cosmic_for_splice_investigation.csv')
   ##gsub the chr
   #combine the man transcript table with the coding mutation table so can convert from ENST to ENSG to match cosmic.
   mane_temp= mane.rename(columns={'chr':'chr_mane', 'start': 'start_mane', 'end': 'end_mane', 'gene_name': 'gene_name_mane', 'transcript_ID':'mane_tran', 'gene_ID': 'gene_ID_mane' })
