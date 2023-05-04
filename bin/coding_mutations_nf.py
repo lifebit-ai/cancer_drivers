@@ -20,7 +20,9 @@ my_parser.add_argument('-cmc',
 my_parser.add_argument('-hgnc',
                        type=str,
                        help='path to the hgnc table')
-
+my_parser.add_argument('-hgnc',
+                       type=str,
+                       help='path to table containing non-mane transcript info')
 args = my_parser.parse_args()
 
 ###pull out coding mutations
@@ -29,6 +31,7 @@ annotation_vcf_path = args.annotation_vcf_path
 mane_path = args.mane
 cmc = args.cmc
 hgnc = args.hgnc
+non_mane_transcripts = args.non_mane_transcripts
 
 def flatten(A):
     rt = []
@@ -60,7 +63,10 @@ mane[['gene_ID', 'to_del2']] = mane['geneName'].str.split('.', 1, expand=True)
 mane = mane.rename(columns={'#chrom': 'chr', 'chromStart': 'start', 'chromEnd': 'end', 'geneName2': 'gene_name' })
 mane['chr'] = mane['chr'].str.replace('chr', '')
 mane = mane[['chr', 'start', 'end', 'transcript_ID','gene_ID', 'gene_name']]
-#mane.to_csv('start_end_pos_of_mane_transcript_all_human_genes.csv')
+
+non_mane_transcripts = pd.read_csv(non_mane_transcripts)
+mane = pd.concat([mane, non_mane_transcripts])
+mane = mane.reset_index(drop = True)
 
 
 def nth_repl(s, sub, repl, n):
@@ -131,6 +137,8 @@ cmc= cmc[['GENE_NAME','ACCESSION_NUMBER','ONC_TSG','CGC_TIER','MUTATION_URL','LE
 'GENOMIC_MUTATION_ID','Mutation genome position GRCh38','COSMIC_SAMPLE_TESTED','COSMIC_SAMPLE_MUTATED']]
 
 hgnc = pd.read_csv(hgnc,sep='\t')
+
+
 
 #samp = pd.read_csv('/home/jovyan/session_data/mounted-data/LP3000429-DNA_G03.vcf', comment='#', sep='\t', header=None)
 samp = pd.read_csv(annotation_vcf_path, comment='#', sep='\t', header=None)
