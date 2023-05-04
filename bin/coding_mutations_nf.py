@@ -152,10 +152,12 @@ samp = samp[samp['FILTER']=='PASS']
 to_keep = list(samp['INFO'].str.contains('|'.join(relevant_terms)))
 samp['relevant_types']=to_keep
 sampcsqt_type = samp.loc[samp['relevant_types']==True]
+samp_tert = samp[(samp['pos'].isin([1295228, 1295250,1295229,1295242,1295243])) & (samp['chr']=='5')]
+##join together variants which have a mutation in the important TERT promoter sites and those which are associated with relevant terms
+sampcsqt_type = pd.concat([sampcsqt_type, samp_tert])
 sampcsqt_type.index = pd.RangeIndex(len(sampcsqt_type.index))
-sampcsqt_type
-#sampcsqt_type
-#sampcsqt['relevant_type'].value_counts()
+
+
 #check how many mane canonical transcripts are listed in the info field. One is good. Sometimes there is more than one. Sometimes there are none. Sometimes there are more than one check_transcripts = list()
 check_transcripts = list()
 for gene in range(len(sampcsqt_type)):
