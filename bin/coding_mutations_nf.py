@@ -20,7 +20,7 @@ my_parser.add_argument('-cmc',
 my_parser.add_argument('-hgnc',
                        type=str,
                        help='path to the hgnc table')
-my_parser.add_argument('-hgnc',
+my_parser.add_argument('-non_mane_transcripts',
                        type=str,
                        help='path to table containing non-mane transcript info')
 args = my_parser.parse_args()
