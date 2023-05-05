@@ -181,11 +181,13 @@ sampcsqt_type['mane_tran'] = check_transcripts
 ##output these tables to investigate strange cases
 sampcsqt_type_over_1 = sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)>1]
 sampcsqt_type_over_1.index = pd.RangeIndex(len(sampcsqt_type_over_1.index))
+sampcsqt_type_over_1['transcript_count'] = 'over_one'
 sampcsqt_type_over_1.to_csv(sample + '_coding_mutations_more_than_1_mane_transcript_maps.csv')
 sampcsqt_type_nocantran =sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==1]
 #filter out rows where there are no canonical transcripts in the info column 
 sampcsqt_type_nocantran['mane_tran']=flatten(sampcsqt_type_nocantran['mane_tran'])
 sampcsqt_type_nocantran = sampcsqt_type_nocantran.loc[sampcsqt_type_nocantran['mane_tran'] == 'NoManeTran']
+sampcsqt_type_nocantran['transcript_count'] = 'zero'
 sampcsqt_type_nocantran.to_csv(sample + '_coding_mutations_no_mane_transcript_maps.csv')
 ###
 
@@ -194,7 +196,12 @@ sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'].map(len)==1]
 sampcsqt_type['mane_tran'] = flatten(sampcsqt_type['mane_tran'])
 sampcsqt_type = sampcsqt_type.loc[sampcsqt_type['mane_tran'] != 'NoManeTran']
 sampcsqt_type.index = pd.RangeIndex(len(sampcsqt_type.index))
+sampcsqt_type['transcript_count'] = 'one'
 sampcsqt_type.to_csv(sample + '_sampcsqt_type.csv')
+
+####join together one mane transcript and zero because they will be largely processed toghet
+sampcsqt_type = pd.concat([sampcsqt_type, sampcsqt_type_nocantran])
+
 
 if len(sampcsqt_type_over_1.index) >0:
     variant_info = list()
@@ -229,12 +236,14 @@ if len(sampcsqt_type_over_1.index) >0:
     sampcsqt_type_over_1['variant_info'] =variant_info
     sampcsqt_type_over_1['VAF'] =VAF
     sampcsqt_type_over_1=sampcsqt_type_over_1.loc[sampcsqt_type_over_1['variant_info'].map(len)==1]
+    sampcsqt_type_over_1['transcript_count'] = 'one'
+    sampcsqt_type_over_1_bothrelevant_terms =sampcsqt_type_over_1.loc[sampcsqt_type_over_1['variant_info'].map(len)>1]
+    sampcsqt_type_over_1 = pd.concat([sampcsqt_type_over_1, sampcsqt_type_over_1_bothrelevant_terms])
     if len(sampcsqt_type_over_1.index) > 0:
         sampcsqt_type_over_1['variant_info'] = flatten(sampcsqt_type_over_1['variant_info'])
         sampcsqt_type_over_1[['variant_info', 'mane_tran']] = sampcsqt_type_over_1['variant_info'].str.split('$', 1, expand=True)
     else:
         sampcsqt_type_over_1 = None
-
 #pull out the variant info - split into the two cases os whether the ENST is written once or twice in the info column SomaticFisherPhred = list()
 if len(sampcsqt_type.index) >0:
   VAF= list()
