@@ -235,10 +235,10 @@ if len(sampcsqt_type_over_1.index) >0:
                 element.remove(element[1])
     sampcsqt_type_over_1['variant_info'] =variant_info
     sampcsqt_type_over_1['VAF'] =VAF
-    sampcsqt_type_over_1=sampcsqt_type_over_1.loc[sampcsqt_type_over_1['variant_info'].map(len)==1]
-    sampcsqt_type_over_1['transcript_count'] = 'one'
+    sampcsqt_type_over_1_one_relevant=sampcsqt_type_over_1.loc[sampcsqt_type_over_1['variant_info'].map(len)==1]
+    sampcsqt_type_over_1_one_relevant['transcript_count'] = 'one'
     sampcsqt_type_over_1_bothrelevant_terms =sampcsqt_type_over_1.loc[sampcsqt_type_over_1['variant_info'].map(len)>1]
-    sampcsqt_type_over_1 = pd.concat([sampcsqt_type_over_1, sampcsqt_type_over_1_bothrelevant_terms])
+    sampcsqt_type_over_1 = pd.concat([sampcsqt_type_over_1_one_relevant, sampcsqt_type_over_1_bothrelevant_terms])
     if len(sampcsqt_type_over_1.index) > 0:
         sampcsqt_type_over_1['variant_info'] = flatten(sampcsqt_type_over_1['variant_info'])
         sampcsqt_type_over_1[['variant_info', 'mane_tran']] = sampcsqt_type_over_1['variant_info'].str.split('$', 1, expand=True)
