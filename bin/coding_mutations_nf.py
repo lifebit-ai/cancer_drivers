@@ -201,6 +201,7 @@ sampcsqt_type.to_csv(sample + '_sampcsqt_type.csv')
 
 ####join together one mane transcript and zero because they will be largely processed toghet
 sampcsqt_type = pd.concat([sampcsqt_type, sampcsqt_type_nocantran])
+sampcsqt_type = sampcsqt_type.reset_index(drop=True)
 
 
 if len(sampcsqt_type_over_1.index) >0:
@@ -264,8 +265,10 @@ if len(sampcsqt_type.index) >0:
           outtemp = sampcsqt_type['INFO'][gene].rsplit(sampcsqt_type['mane_tran'][gene], maxsplit=2)[2]
           outtemp = re.split(',|;', outtemp)[0]
           variant_info.append(outtemp)
-
-
+      ##this is for when there are no mane transcripts in the info col    
+      if len(re.findall(sampcsqt_type['mane_tran'][gene], sampcsqt_type['INFO'][gene])) ==0:
+          #split at both ENST to next,];
+          variant_info.append('NoManeTran_cant_use_aa_or_cds)
   sampcsqt_type['variant_info'] = variant_info
   sampcsqt_type['VAF']=VAF
 if len(sampcsqt_type.index)>0:
