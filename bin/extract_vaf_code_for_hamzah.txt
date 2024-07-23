@@ -1,0 +1,48 @@
+for(sample in samples){
+##indels
+smallvariants_VCF <- VariantAnnotation::readVcf(paste0('2024_06_03_filtered_scanb_brca/',sample,'_noqualrep_filter.vcf'), genome ='hg38')
+e.vcf <- VariantAnnotation::expand(smallvariants_VCF)
+rd <- SummarizedExperiment::rowRanges(e.vcf)
+rgs <- IRanges::ranges(e.vcf)
+indel = data.frame(
+chr=as.character(SummarizedExperiment::seqnames(e.vcf)),
+position=BiocGenerics::start(rgs),
+REF=as.character(rd$REF),
+ALT=as.character(rd$ALT),   
+PU = VariantAnnotation::geno(e.vcf)$PU,
+NU = VariantAnnotation::geno(e.vcf)$NU,
+PR = VariantAnnotation::geno(e.vcf)$PR,
+NR = VariantAnnotation::geno(e.vcf)$NR,
+QUAL=as.character(rd$QUAL),   
+REP = VariantAnnotation::info(e.vcf)$REP )
+
+indel$VAF <- (as.numeric(indel$PU.TUMOUR) + as.numeric(indel$NU.TUMOUR))/(as.numeric(indel$PR.TUMOUR) + as.numeric(indel$NR.TUMOUR))
+
+indel$ASMD <- NA
+indel$CLPM <- NA     
+
+##snvs    
+smallvariants_VCF <- VariantAnnotation::readVcf(paste0('2024_06_03_filtered_scanb_brca/',sample,'_no_clpm_asmd_filter_for_drivers.vcf'), genome ='hg38')
+e.vcf <- VariantAnnotation::expand(smallvariants_VCF)
+rd <- SummarizedExperiment::rowRanges(e.vcf)
+rgs <- IRanges::ranges(e.vcf)
+snvs = data.frame(
+chr=as.character(SummarizedExperiment::seqnames(e.vcf)),
+position=BiocGenerics::start(rgs),
+REF=as.character(rd$REF),
+ALT=as.character(rd$ALT),   
+PM = VariantAnnotation::geno(e.vcf)$PM,
+ASMD = VariantAnnotation::info(e.vcf)$ASMD,
+CLPM = VariantAnnotation::info(e.vcf)$CLPM)
+
+names(snvs)[names(snvs) == 'PM.TUMOUR'] <- 'VAF'
+snvs$QUAL <- NA
+snvs$REP <- NA    
+
+indel = indel[,c('chr','position','REF','ALT','VAF','ASMD','CLPM','QUAL','REP')]
+snvs = snvs[,c('chr','position','REF','ALT','VAF','ASMD','CLPM','QUAL','REP')]    
+    
+together = rbind(indel,snvs)    
+write.csv(together[,c('chr','position','REF','ALT','VAF','ASMD','CLPM','QUAL','REP')],paste0('/mnt/session_data/2024_06_04/2024_06_03_filtered_scanb_brca/extract_coding_mutations_input/together/',sample, '_no_qual_rep_asmd_clpm_for_drivers.csv'),row.names=F,quote=F)
+   
+   }
