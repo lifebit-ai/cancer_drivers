@@ -1,0 +1,10 @@
+##fileformat=VCFv4.1
+##source=CAVEMANv1.13.3
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+##INFO=<ID=SS,Number=1,Type=String,Description="Somatic Status">
+##INFO=<ID=VT,Number=1,Type=String,Description="Variant Type">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=AD,Number=.,Type=Integer,Description="Allelic Depths for the ref and alt alleles">
+#CHROM  POS     ID  REF ALT QUAL    FILTER  INFO    FORMAT  TUMOR_SAMPLE NORMAL_SAMPLE
+1   1234567 .   C   T   50  PASS    DP=30;SS=2;VT=SNV GT:AD   0/1:10,20  0/0:25,5
+2   9876543 .   G   A   60  PASS    DP=45;SS=2;VT=SNV GT:AD   0/1:22,23  0/0:40,2
